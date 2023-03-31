@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="aio logic.aiopivottable.AIOPivotTable" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>AIOPivot Table</name>
+    <description>Pivot Table</description>
+    <icon/>
+    <properties>
+        <property key="csv" type="attribute">
+            <caption>CSV</caption>
+            <category>Data</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="headerMeta" type="attribute">
+            <caption>Header Meta JSON</caption>
+            <category>Data</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="values" type="attribute">
+            <caption>Values Selected</caption>
+            <category>Data</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="rows" type="attribute">
+            <caption>Rows Selected</caption>
+            <category>Data</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="columns" type="attribute">
+            <caption>Columns Selected</caption>
+            <category>Data</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="filters" type="attribute">
+            <caption>Filters Selected</caption>
+            <category>Data</category>
+            <description></description>
+            <attributeTypes>
+                <attributeType name="String" />
+            </attributeTypes>
+        </property>
+        <property key="downloadReport" type="action">
+            <caption>Download Report</caption>
+            <category>Data</category>
+            <description>Action to be performed when button is clicked</description>
+        </property>
+
+    </properties>
+</widget>
