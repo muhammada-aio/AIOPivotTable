@@ -56,10 +56,9 @@
             </attributeTypes>
         </property>
         <property key="downloadReport" type="action">
-            <caption>Download Report</caption>
+            <caption>Download Report Action</caption>
             <category>Data</category>
-            <description>Action to be performed when button is clicked</description>
+            <description></description>
         </property>
-
     </properties>
 </widget>

@@ -12,9 +12,7 @@ const gridSettings = {
 };
 
 const PivotTable = ({ csv, headerMeta, downloadReport, rows, filters, columns, values }) => {
-    const toolbarOptions = [
-        { text: 'Download', tooltipText: 'Download', prefixIcon: 'e-expand', id: 'download' },
-    ];
+    const toolbarOptions = [{ text: 'Search', align: 'Right' }, { text: 'Download', align: 'Left', id: "download" }];
 
     const [dataSourceSettings, setDataSourceSettings] = useState({
         enableSorting: true,
@@ -106,8 +104,10 @@ const PivotTable = ({ csv, headerMeta, downloadReport, rows, filters, columns, v
     }
 
     const clickHandler = (args) => {
-        if (gridInstance && args.item.id === 'download') {
-            console.info(downloadReport)
+        if (args.item.id === 'download') {
+            if(downloadReport.canExecute) {
+                downloadReport.execute()
+            }
         }
     };
 
