@@ -11,7 +11,8 @@ const gridSettings = {
     clipMode: "EllipsisWithTooltip"
 };
 
-const PivotTable = ({ csv, headerMeta, downloadReport, rows, filters, columns, values }) => {
+const PivotTable = (props) => {
+    const { csv, headerMeta, downloadReport, rows, filters, columns, values, saveChange } = props;
     const toolbarOptions = [{ text: 'Search', align: 'Right' }, { text: 'Download', align: 'Left', id: "download" }];
 
     const [dataSourceSettings, setDataSourceSettings] = useState({
@@ -24,14 +25,14 @@ const PivotTable = ({ csv, headerMeta, downloadReport, rows, filters, columns, v
 
 
     useEffect(() => {
-        if (csv.status === "available" 
-                && csv.value !== "" 
-                && rows.status === "available" 
-                && filters.status === "available" 
-                && columns.status === "available" 
-                && values.status === "available" 
-                && headerMeta.status === "available" 
-                && headerMeta.value !== "") {
+        if (csv.status === "available"
+            && csv.value !== ""
+            && rows.status === "available"
+            && filters.status === "available"
+            && columns.status === "available"
+            && values.status === "available"
+            && headerMeta.status === "available"
+            && headerMeta.value !== "") {
             const rowsParsed = rows.value === "" ? [] : JSON.parse(rows.value);
             const columnsParsed = columns.value === "" ? [] : JSON.parse(columns.value);
             const valuesParsed = values.value === "" ? [] : JSON.parse(values.value);
@@ -72,16 +73,16 @@ const PivotTable = ({ csv, headerMeta, downloadReport, rows, filters, columns, v
             setTimeout(() => {
                 setDataSourceSettings(prev => ({
                     ...prev,
-                    columns: columnsParsed.map(x => ({name: x.value, caption: x.label})),
-                    rows: rowsParsed.map(x => ({name: x.value, caption: x.label})),
-                    values: valuesParsed.map(x => ({name: x.value, caption: x.label})),
-                    filters: filtersParsed.map(x => ({name: x.value, caption: x.label})),
+                    columns: columnsParsed.map(x => ({ name: x.value, caption: x.label })),
+                    rows: rowsParsed.map(x => ({ name: x.value, caption: x.label })),
+                    values: valuesParsed.map(x => ({ name: x.value, caption: x.label })),
+                    filters: filtersParsed.map(x => ({ name: x.value, caption: x.label })),
                     dataSource: rowsData,
                 }))
             }, 100)
 
         }
-    }, [csv, rows, filters, columns, values, headerMeta])
+    }, [csv, headerMeta])
 
 
     const formatColumn = (value, dataType) => {
@@ -105,16 +106,34 @@ const PivotTable = ({ csv, headerMeta, downloadReport, rows, filters, columns, v
 
     const clickHandler = (args) => {
         if (args.item.id === 'download') {
-            if(downloadReport.canExecute) {
+            if (downloadReport.canExecute) {
                 downloadReport.execute()
             }
         }
     };
 
+    const handleActionCompleted = (action) => {
+        if(action.actionName === "Field list closed") {
+            const newRows = action.dataSourceSettings.rows.map(x => ({value: x.name, label: x.caption}));
+            const newColumns = action.dataSourceSettings.columns.map(x => ({value: x.name, label: x.caption}));
+            const newValues = action.dataSourceSettings.values.map(x => ({value: x.name, label: x.caption}));
+            const newFilters = action.dataSourceSettings.filters.map(x => ({value: x.name, caption: x.caption}));
+
+            props.rows.setValue(JSON.stringify(newRows));
+            props.columns.setValue(JSON.stringify(newColumns));
+            props.values.setValue(JSON.stringify(newValues));
+            props.filters.setValue(JSON.stringify(newFilters));
+
+            if (saveChange.canExecute) {
+                saveChange.execute()
+            }
+        }
+    }
+
     return <div className='control-pane'>
         <div className='control-section' style={{ overflow: 'auto' }}>
             {dataSourceSettings.dataSource.length > 0 &&
-                <PivotViewComponent toolbarClick={clickHandler} toolbar={toolbarOptions} showFieldList={true} dataSourceSettings={dataSourceSettings} width={'100%'} gridSettings={gridSettings}>
+                <PivotViewComponent actionComplete={handleActionCompleted} toolbarClick={clickHandler} toolbar={toolbarOptions} showFieldList={true} dataSourceSettings={dataSourceSettings} width={'100%'} gridSettings={gridSettings}>
                     <Inject services={[FieldList, Toolbar]}></Inject>
                 </PivotViewComponent>
             }

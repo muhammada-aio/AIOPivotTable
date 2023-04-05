@@ -24,15 +24,15 @@
             </attributeTypes>
         </property>
         <property key="values" type="attribute">
-            <caption>Values Selected</caption>
+            <caption>Columns (path)</caption>
             <category>Data</category>
-            <description></description>
+            <description/>
             <attributeTypes>
-                <attributeType name="String" />
+                <attributeType name="String"/>
             </attributeTypes>
         </property>
         <property key="rows" type="attribute">
-            <caption>Rows Selected</caption>
+            <caption>Rows (path)</caption>
             <category>Data</category>
             <description></description>
             <attributeTypes>
@@ -40,7 +40,7 @@
             </attributeTypes>
         </property>
         <property key="columns" type="attribute">
-            <caption>Columns Selected</caption>
+            <caption>Columns (path)</caption>
             <category>Data</category>
             <description></description>
             <attributeTypes>
@@ -48,7 +48,7 @@
             </attributeTypes>
         </property>
         <property key="filters" type="attribute">
-            <caption>Filters Selected</caption>
+            <caption>Filters (path)</caption>
             <category>Data</category>
             <description></description>
             <attributeTypes>
@@ -57,6 +57,11 @@
         </property>
         <property key="downloadReport" type="action">
             <caption>Download Report Action</caption>
+            <category>Data</category>
+            <description></description>
+        </property>
+        <property key="saveChange" type="action">
+            <caption>Save on Field List change</caption>
             <category>Data</category>
             <description></description>
         </property>
